@@ -1,0 +1,37 @@
+.colors {
+    position: relative;
+    height: 260px;
+    cursor: pointer;
+}
+
+.colors:hover {
+    transform: scale(1.05);
+    z-index: 2;
+}
+
+.colors p {
+    padding-left: 1rem;
+    color: var(--black);
+}
+
+.colors--dark p {
+    color: var(--white);
+}
+
+.colors span {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: inline-block;
+    color: #617d98;
+    opacity: 0;
+    visibility: hidden;
+    transition: .25s;
+}
+
+
+
+.colors span.show {
+    opacity: 1;
+    visibility: visible;
+}

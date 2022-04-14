@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import Colors from './components/Colors'
+import Values from 'values.js'
+import './App.css'
+
 
 function App() {
+  const [color, setColor] = useState("#4B145B")
+  const [value, setValue] = useState(new Values('#4B145B').all(10))
+  const [error, setError] = useState(false)
+  
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    try {
+      setValue(new Values(color).all(10))
+      setError(false)
+
+    } catch (error) {
+      console.log(error)
+      setError(true)
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <section className="App">
+      <div className="app__wrapper">
+        <div className="app__header">
+          <form className="app__form" onSubmit={ handleSubmit }>
+            <label htmlFor="colorInput">Color Generator</label>
+            <input type="text" className={`${error ? 'error' : ''}`} name='colorInput' value={ color } onChange={ (e) => setColor(e.target.value) } />
+            <button type='submit' style={{ backgroundColor: `${color}` }}>Generate</button>
+          </form>
+        </div>
+
+        <div className="app__body">
+          { value.map((item, idx) => <Colors key={ idx } colors={ item } />) }
+        </div>
+      </div>
+    </section>
+  )
 }
 
-export default App;
+export default App
